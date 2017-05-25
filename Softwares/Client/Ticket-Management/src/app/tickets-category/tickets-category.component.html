@@ -1,0 +1,50 @@
+<div style="width: 300px; margin-bottom: 20px;">
+  <h3>Select Ticket Category</h3>
+  <ng-select  [multiple]="true"
+              [items]="parts"
+
+              (selected)="selected($event)"
+              (removed)="removed($event)"
+              placeholder="No ticket selected"></ng-select>
+
+  <div>
+    <div class="col-lg-0">
+      <select name="types" >
+        <option value="Mobile">Mobile</option>
+        <option value="Laptop">Laptop</option>
+      </select>
+      <p class="help-block text-danger"></p>
+    </div>
+  </div>
+</div>
+<table class="table table-striped" [mfData]="parts" #mf="mfDataTable" [mfRowsOnPage]="5">
+  <thead>
+  <tr>
+    <th style="width: 12%">
+      <mfDefaultSorter by="S.no">S.No</mfDefaultSorter>
+    </th>
+    <th style="width: 12%">
+      <mfDefaultSorter by="TicketName">Ticket Name</mfDefaultSorter>
+    </th>
+    <th style="width: 12%">
+      <mfDefaultSorter by="Status">Status</mfDefaultSorter>
+    </th>
+    <th style="width: 12%">
+      <mfDefaultSorter by="Priority">Actions</mfDefaultSorter>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <!--<tr *ngFor="let item of PartArray; let j=index" >
+    <td bgcolor="#ff7f50">{{item.S.No}}</td>
+    <td bgcolor="#ff7f50">{{item.TicketName}}</td>
+    <td bgcolor="#ff7f50">{{item.Status}}</td>
+    <td bgcolor="#ff7f50">{{item.Priority}}</td>
+    <td >
+      <button type="button" class="btn btn-primary">View</button>
+      <button type="button" class="btn btn-primary">Edit</button>
+      <button type="button" class="btn btn-primary">Delete</button>
+    </td>
+  </tr>-->
+  </tbody>
+</table>
