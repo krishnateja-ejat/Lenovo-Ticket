@@ -8,11 +8,14 @@ import { TicketsCategoryComponent } from './tickets-category/tickets-category.co
 import {SelectModule} from 'ng2-select';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import {DataTableModule} from "angular2-datatable";
+import {routes} from './router';
+
 @NgModule( {
   declarations: [
     AppComponent,
     TicketsCategoryComponent,
-    CreateTicketComponent
+    CreateTicketComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -20,7 +23,9 @@ import {DataTableModule} from "angular2-datatable";
     HttpModule,
     FormsModule,
     SelectModule,
-    DataTableModule
+    DataTableModule,
+    routes,
+
 
 
   ],
