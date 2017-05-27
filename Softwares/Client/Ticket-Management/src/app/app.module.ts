@@ -9,12 +9,15 @@ import {SelectModule} from 'ng2-select';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import {DataTableModule} from "angular2-datatable";
 import {routes} from './router';
-
+import { ModalModule } from 'ngx-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 @NgModule( {
   declarations: [
     AppComponent,
     TicketsCategoryComponent,
     CreateTicketComponent,
+    ViewTicketComponent,
 
   ],
   imports: [
@@ -25,10 +28,11 @@ import {routes} from './router';
     SelectModule,
     DataTableModule,
     routes,
-
-
-
+    ModalModule.forRoot(),
+    NgbModule.forRoot(),
+    NgbModule
   ],
+  entryComponents : [ViewTicketComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

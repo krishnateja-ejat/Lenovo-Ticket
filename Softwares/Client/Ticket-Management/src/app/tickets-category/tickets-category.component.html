@@ -38,7 +38,7 @@
       <thead>
       <tr>
         <th style="width: 12%">
-          <mfDefaultSorter by="S.No">S.No</mfDefaultSorter>
+          <mfDefaultSorter by="S.No">Ticket.Id</mfDefaultSorter>
         </th>
         <th style="width: 12%">
           <mfDefaultSorter by="name">Ticket Name</mfDefaultSorter>
@@ -55,19 +55,19 @@
       </tr>
       </thead>
       <tbody >
-      <tr *ngFor="let item of this.FilterCatagory;" >
+      <tr *ngFor="let item of this.FilterCatagory;let position=index" >
         <td bgcolor="#ff7f50">{{item.Ticket_No}}</td>
         <td bgcolor="#ff7f50">{{item.name}}</td>
         <td bgcolor="#ff7f50">
-          <select name="status" ngModel #type="ngModel">
+          <select name="status" [(ngModel)]="status">
           <option value="Open">Open</option>
           <option value="Close">Close</option>
         </select>
         </td>
         <td bgcolor="#ff7f50">{{item.priority}}</td>
-        <td><button type="button" class="btn btn-success btn-sm" >View</button>
-          <button type="button" class="btn btn-success btn-sm" >Edit</button>
-          <button type="button" class="btn btn-success btn-sm" >Delete</button>
+        <td><button type="button" class="btn btn-success btn-sm" (click)="view(item.Ticket_No)">View</button>
+          <button type="button" class="btn btn-success btn-sm" (click)="edit(item.Ticket_No)"  >Edit</button>
+          <button type="button" class="btn btn-success btn-sm" (click)="conformationDelete(item.Ticket_No)" >Delete</button>
         </td>
 
       </tr>
@@ -83,3 +83,145 @@
     </table>
   </div>
 </section>
+
+<!--
+///////////////////////////////////View Modal////////////////////////////////
+-->
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">View Ticket</h4>
+        <button type="button" class="close pull-right" aria-label="Close" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <tbody>
+
+          <tr>
+            <td class="text-success"><i class="fa fa-user"></i> Ticket No</td>
+            <td>{{ViewRecord.Ticket_No}}</td>
+          </tr>
+          <tr>
+            <td class="text-success"><i class="fa fa-list-ol"></i> Ticket Discription</td>
+            <td>{{ViewRecord.Discription}}</td>
+          </tr>
+          <tr>
+            <td class="text-success"><i class="fa fa-book"></i> Category</td>
+            <td>{{ViewRecord.category}}</td>
+          </tr>
+          <tr>
+            <td class="text-success"><i class="fa fa-group"></i> Type </td>
+            <td>{{ViewRecord.type}}</td>
+          </tr>
+          <tr>
+            <td class="text-success"><i class="fa fa-calendar"></i> Status</td>
+            <td>{{ViewRecord.status}}</td>
+          </tr>
+
+          <tr>
+            <button type="button" class="btn btn-success btn-sm"  >Resolve</button>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+///////////////////////////////////////Edit Modal////////////////////////////////-->
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+              <h1>Edit Ticket</h1>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <form class="form-horizontal" role="form" >
+
+              <div class="form-group">
+                <div class="col-sm-6">
+                  <label >Type</label><br>
+                  <select name="type" [(ngModel)]="EditTicketType">
+                    <option value="Mobile">Mobile</option>
+                    <option value="Laptop">Laptop</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-6">
+                  <label >Category:</label><br>
+                  <select name="category" [(ngModel)]="EditTicketCategory">
+                    <option value="Spare Parts">Spare Parts</option>
+                    <option value="Manufacture Defect">Manufacture Defect</option>
+                    <option value="Parts Replacement">Parts Replacement</option>
+                    <option value="Parts Replacement">Battery Leakage</option>
+                    <option value="Parts Replacement">Charger Defect</option>
+                    <option value="Parts Replacement">Warrenty Extension</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-2">
+                  <label >Name</label>
+                  <input type="text" class="form-control"  name="EditTicketName"   minlength="6" required placeholder="Name" name="EditTicketName" [(ngModel)]="EditTicketName" >
+                </div>
+              </div>
+
+              <div class="form-group">
+
+                <div class="col-sm-2">
+                  <label >Discription</label>
+                  <textarea  class="form-control"  name="EditTicketDiscription"  minlength="10" required name="EditTicketDiscription" [(ngModel)]="EditTicketDiscription"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6">
+                  <label >Priorty</label><br>
+                  <select name="priority" [(ngModel)]="EditTicketPriorty">
+                    <option value="high">High</option>
+                    <option value="low">Low</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div  class="col-sm-6">
+                  <button type="btn" class="btn btn-primary" id="register" (click)="UpdatedRecord(editedticket)" >Save</button>
+                  <button type="btn" class="btn btn-danger" id="send" >Close</button>
+
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+///////////////////////////////deleteModal/////////////////////////////-->
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <h1>Edit Ticket</h1>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <p>Do You Want To Delete {{}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

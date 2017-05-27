@@ -25,6 +25,8 @@ export class CreateTicketComponent implements OnInit {
       Discription:'',
       Priorty: '',
     }
+
+
   AddTicket({ value }: { value: Ticket }) {
     let count=this.Tickets.length+1;
     value.Ticket_No = count;
