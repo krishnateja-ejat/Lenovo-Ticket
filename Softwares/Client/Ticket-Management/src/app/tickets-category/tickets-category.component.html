@@ -66,7 +66,7 @@
         </select>
         </td>
         <td bgcolor="#ff7f50">{{item.priority}}</td>
-        <td><button type="button" class="btn btn-success btn-sm" (click)="view(item.Ticket_No,item.category)">View</button>
+        <td><button type="button" class="btn btn-success btn-sm" (click)="view(item.Ticket_No)">View</button>
           <button type="button" class="btn btn-success btn-sm" (click)="edit(item.Ticket_No)"  >Edit</button>
           <button type="button" class="btn btn-success btn-sm" (click)="delete(position,item.Ticket_No)" >Delete</button>
         </td>
@@ -95,7 +95,7 @@
 <!--
 ///////////////////////////////////View Modal////////////////////////////////
 -->
-<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div bsModal #viewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
@@ -130,7 +130,7 @@
           </tr>
 
           <tr>
-            <button type="button" class="btn btn-success btn-sm"  >Resolve</button>
+            <button type="button" class="btn btn-success btn-sm"  (click)="resolve()">Resolve</button>
           </tr>
           </tbody>
         </table>
@@ -202,7 +202,7 @@
               <div class="form-group">
                 <div  class="col-sm-6">
                   <button type="btn" class="btn btn-primary"  (click)="UpdatedRecord(editedticket,this.editcategory)" >Save</button>
-                  <button type="btn" class="btn btn-danger" id="send" >Close</button>
+                  <button type="btn" class="btn btn-danger" (click)="NoUpdate()" >Close</button>
 
                 </div>
               </div>
@@ -216,20 +216,24 @@
 </div>
 <!--
 ///////////////////////////////deleteModal/////////////////////////////-->
-<!--<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-body">
         <div class="container">
           <div class="row">
-            <h1>Edit Ticket</h1>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+            <button type="button" class="close pull-right" aria-label="Close" >
               <span aria-hidden="true">&times;</span>
             </button>
-            <p>Do You Want To Delete {{}}</p>
+            <p>Do You Want To Delete Ticket Id:- {{delete_key}}</p>
+            <div  class="col-sm-6">
+              <button type="btn" class="btn btn-primary" (click)="deleteconformation(delete_index,delete_key)" >Yes</button>
+              <button type="btn" class="btn btn-danger"  (click)="notconfermation()">No</button>
+
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>-->
+</div>

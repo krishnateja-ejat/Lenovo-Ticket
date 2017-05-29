@@ -13,18 +13,15 @@ import {Ticket} from "../create-ticket/create-ticket-interface";
 
 })
 export class TicketsCategoryComponent  {
-  protected searchStr: string
+
   TicketArray=[];
-  public Catagoryarray:Array<any> = [];
   public CategoryList=[];
   public FilterCatagory=[];
   public SelectedValue;
-  public test=10;
   public devicetype;
   public ViewRecord:any={};
   public status;
   public EditRecord={};
-  public UpdatedList=[];
   public EditTicketName;
   public EditTicketCategory;
   public EditTicketDiscription;
@@ -34,7 +31,8 @@ export class TicketsCategoryComponent  {
   public edidiscription;
   public editedticket;
   public editcategory;
-  public statusvalues=['open','close'];
+  public delete_key;
+  public delete_index;
   constructor(private model:NgbModal)
   {
    let  tickets=localStorage.getItem("ticket");
@@ -60,7 +58,7 @@ export class TicketsCategoryComponent  {
     })
 
   }
-  @ViewChild('childModal') public childModal:ModalDirective;
+  @ViewChild('viewModal') public viewModal:ModalDirective;
   @ViewChild('editModal') public editModal:ModalDirective;
   @ViewChild('deleteModal') public deleteModal:ModalDirective;
   private value:any = {};
@@ -102,7 +100,6 @@ export class TicketsCategoryComponent  {
     this.TicketArray.forEach((EachRecord)=>{
       if(EachRecord.type===SelectedValue && EachRecord.category===typeofdevice)
       {
-
         this.FilterCatagory.push(EachRecord);
       }
 
@@ -112,17 +109,18 @@ export class TicketsCategoryComponent  {
   }
 
   //View Data Method
-  view(index,category)
+  public view(index)
   {
     let bool = true;
     this.FilterCatagory.forEach((EachRecord)=>{
       if(bool) {
         if (EachRecord.Ticket_No == index) {
+          let Category=EachRecord.category
             this.ViewRecord=
             {
               Discription:EachRecord.Discription,
               Ticket_No:EachRecord.Ticket_No,
-              category:category,
+              category:Category,
               name:EachRecord.name,
               status:this.status,
               type:EachRecord.type,
@@ -131,9 +129,8 @@ export class TicketsCategoryComponent  {
         }
       }
     });
-    alert(this.ViewRecord)
     console.log(this.ViewRecord);
-    this.childModal.show();
+    this.viewModal.show();
     // const modelRef = this.model.open(ViewTicketComponent,{size: 'lg'});
     // modelRef.componentInstance.ViewRecord = this.ViewRecord;
     // modelRef.result.then((formData) => {
@@ -144,19 +141,14 @@ export class TicketsCategoryComponent  {
     // console.log(this.ViewRecord.Ticket_No)
 
   }
-  delete(del_index:any,key){
-    alert(del_index)
-    this.FilterCatagory.splice(del_index,1);
-    for(let i=0;i<this.TicketArray.length;i++)
-    {
-      if(this.TicketArray[i].Ticket_No==key)
-      {
-        this.TicketArray.splice(i,1);
-        break;
-      }
-    }
+  public delete(del_index:any,key){
+
+    this.deleteModal.show()
+    this.delete_index=del_index;
+    this.delete_key=key;
+
   }
-  edit(index)
+  public edit(index)
   {
     let bool = true;
     this.FilterCatagory.forEach((EachRecord)=>{
@@ -172,7 +164,7 @@ export class TicketsCategoryComponent  {
       }
     });
   }
-  UpdatedRecord(index,category) {
+  public UpdatedRecord(index,category) {
     alert(category)
     let bool = true;
     this.EditRecord={
@@ -205,6 +197,30 @@ export class TicketsCategoryComponent  {
     this.EditTicketPriorty="";
     this.EditTicketType="";
 
+  }
+  deleteconformation(del_index:any,key)
+  {
+    this.FilterCatagory.splice(del_index,1);
+    for(let i=0;i<this.TicketArray.length;i++)
+    {
+      if(this.TicketArray[i].Ticket_No==key)
+      {
+        this.TicketArray.splice(i,1);
+        break;
+      }
+    }
+  }
+  notconfermation()
+  {
+    this.deleteModal.hide()
+  }
+  NoUpdate()
+  {
+    this.editModal.hide()
+  }
+  resolve()
+  {
+    this.viewModal.hide()
   }
 
 
