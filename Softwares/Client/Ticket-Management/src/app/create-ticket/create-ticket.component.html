@@ -8,8 +8,8 @@
       <div class="form-group">
         <div class="col-sm-6">
           <label >Type</label><br>
-          <select name="type" ngModel  >
-            <option value="Mobile">Mobile</option>
+          <select class="selectpicker" name="type" ngModel  >
+            <option value="Mobile" >Mobile</option>
             <option value="Laptop">Laptop</option>
           </select>
         </div>
@@ -18,7 +18,7 @@
       <div class="form-group">
         <div class="col-sm-6">
           <label >Category:</label><br>
-          <select name="category" ngModel #category="ngModel" >
+          <select name="category" class="selectpicker" ngModel #category="ngModel" >
             <option value="Spare Parts">Spare Parts</option>
             <option value="Manufacture Defect">Manufacture Defect</option>
             <option value="Parts Replacement">Parts Replacement</option>
@@ -57,7 +57,7 @@
       <div class="form-group">
         <div class="col-sm-6">
           <label >Priorty</label><br>
-          <select name="priority" ngModel #priority="ngModel" placeholder="Select a dropdown value">
+          <select name="priority" ngModel #priority="ngModel" class="selectpicker">
             <option value="high">High</option>
             <option value="low">Low</option>
           </select>

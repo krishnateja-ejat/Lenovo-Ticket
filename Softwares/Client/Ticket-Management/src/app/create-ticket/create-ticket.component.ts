@@ -17,7 +17,7 @@ export class CreateTicketComponent implements OnInit {
 
   Tickets=[];
 
-  AddTicket({ value }: { value: Ticket }) {
+  AddTicket=({ value }: { value: Ticket })=> {
     let count=this.Tickets.length+1;
     value.Ticket_No = count;
     this.Tickets.push(value);
@@ -26,9 +26,7 @@ export class CreateTicketComponent implements OnInit {
   }
   send()
   {
-
     this.router.navigateByUrl('/home');
   }
-
 
 }

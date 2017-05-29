@@ -33,13 +33,13 @@ export class TicketsCategoryComponent  {
   public editcategory;
   public delete_key;
   public delete_index;
+
+
   constructor(private model:NgbModal)
   {
    let  tickets=localStorage.getItem("ticket");
     let ticket = JSON.parse(tickets);
     this.TicketArray=ticket;
-    console.log('from constructor tickerts');
-    console.log(this.TicketArray);
     this.TicketArray.forEach((EachRecord)=>{
       let flag = 0;
       if(this.CategoryList.length === 0){
@@ -65,22 +65,11 @@ export class TicketsCategoryComponent  {
   private _disabledV:string = '0';
   private disabled:boolean = false;
 
-  private get disabledV():string {
-    return this._disabledV;
-  }
 
-  private set disabledV(value:string) {
-    this._disabledV = value;
-    this.disabled = this._disabledV === '1';
-  }
 
   public selected(value:any):void {
     this.SelectedValue = value.id;
-
-
   }
-
-
 
   public removed(value:any):void {
     console.log('Removed value is: ', value);
@@ -93,6 +82,7 @@ export class TicketsCategoryComponent  {
   public refreshValue(value:any):void {
     this.value = value;
   }
+  //Display Data in Table
   public DisplayTable(SelectedValue,typeofdevice)
   {
     console.log(this.TicketArray)
@@ -141,14 +131,16 @@ export class TicketsCategoryComponent  {
     // console.log(this.ViewRecord.Ticket_No)
 
   }
-  public delete(del_index:any,key){
+  //Delete Data
+  public delete=(del_index:any,key)=>{
 
     this.deleteModal.show()
     this.delete_index=del_index;
     this.delete_key=key;
 
   }
-  public edit(index)
+  //Update Data
+  public edit=(index)=>
   {
     let bool = true;
     this.FilterCatagory.forEach((EachRecord)=>{
@@ -164,7 +156,7 @@ export class TicketsCategoryComponent  {
       }
     });
   }
-  public UpdatedRecord(index,category) {
+  public UpdatedRecord=(index,category) =>{
     alert(category)
     let bool = true;
     this.EditRecord={
@@ -198,7 +190,8 @@ export class TicketsCategoryComponent  {
     this.EditTicketType="";
 
   }
-  deleteconformation(del_index:any,key)
+  //Conforming to Delete Record
+  deleteconformation=(del_index:any,key)=>
   {
     this.FilterCatagory.splice(del_index,1);
     for(let i=0;i<this.TicketArray.length;i++)
@@ -206,11 +199,12 @@ export class TicketsCategoryComponent  {
       if(this.TicketArray[i].Ticket_No==key)
       {
         this.TicketArray.splice(i,1);
+        this.deleteModal.hide()
         break;
       }
     }
   }
-  notconfermation()
+  notconformation=()=>
   {
     this.deleteModal.hide()
   }

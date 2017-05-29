@@ -10,7 +10,7 @@
       <div class="col-md-2"></div>
       <div class="col-md-2 type-div">
         <label >Type</label><br>
-        <select name="devicetype" [(ngModel)]="devicetype">
+        <select name="devicetype" class="form-control" [(ngModel)]="devicetype">
           <option value="Mobile">Mobile</option>
           <option value="Laptop">Laptop</option>
         </select>
@@ -39,7 +39,7 @@
       <thead>
       <tr>
         <th style="width: 12%">
-          <mfDefaultSorter by="S.No">Ticket.Id</mfDefaultSorter>
+          <mfDefaultSorter by="S.No">Ticket Id</mfDefaultSorter>
         </th>
         <th style="width: 12%">
           <mfDefaultSorter by="name">Ticket Name</mfDefaultSorter>
@@ -60,8 +60,9 @@
         <td bgcolor="#ff7f50">{{item.Ticket_No}}</td>
         <td bgcolor="#ff7f50">{{item.name}}</td>
         <td bgcolor="#ff7f50">
-          <select name="status" [(ngModel)]="status">
-          <option value="Open" selected>Open</option>
+          <select name="status" class="selectpicker" [(ngModel)]="status">
+
+          <option value="Open">Open</option>
           <option value="Close">Close</option>
         </select>
         </td>
@@ -156,7 +157,6 @@
                 <div class="col-sm-6">
                   <label >Type</label><br>
                   <select name="type" [(ngModel)]="EditTicketType">
-                    <option value="Mobile" >Mobile</option>
                     <option value="Laptop">Laptop</option>
                   </select>
                 </div>
@@ -192,7 +192,7 @@
               <div class="form-group">
                 <div class="col-sm-6">
                   <label >Priorty</label><br>
-                  <select name="priority" [(ngModel)]="EditTicketPriorty">
+                  <select class="form-control" name="priority" [(ngModel)]="EditTicketPriorty">
                     <option value="high">High</option>
                     <option value="low">Low</option>
                   </select>
@@ -228,7 +228,7 @@
             <p>Do You Want To Delete Ticket Id:- {{delete_key}}</p>
             <div  class="col-sm-6">
               <button type="btn" class="btn btn-primary" (click)="deleteconformation(delete_index,delete_key)" >Yes</button>
-              <button type="btn" class="btn btn-danger"  (click)="notconfermation()">No</button>
+              <button type="btn" class="btn btn-danger"  (click)="notconformation()">No</button>
 
             </div>
           </div>
