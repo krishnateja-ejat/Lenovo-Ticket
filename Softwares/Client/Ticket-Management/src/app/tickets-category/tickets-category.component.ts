@@ -34,6 +34,7 @@ export class TicketsCategoryComponent  {
   public edidiscription;
   public editedticket;
   public editcategory;
+  public statusvalues=['open','close'];
   constructor(private model:NgbModal)
   {
    let  tickets=localStorage.getItem("ticket");
@@ -113,12 +114,10 @@ export class TicketsCategoryComponent  {
   //View Data Method
   view(index,category)
   {
-    alert(category)
     let bool = true;
     this.FilterCatagory.forEach((EachRecord)=>{
       if(bool) {
         if (EachRecord.Ticket_No == index) {
-          alert(EachRecord.category)
             this.ViewRecord=
             {
               Discription:EachRecord.Discription,
@@ -145,9 +144,17 @@ export class TicketsCategoryComponent  {
     // console.log(this.ViewRecord.Ticket_No)
 
   }
-  delete(del_index:any){
+  delete(del_index:any,key){
+    alert(del_index)
     this.FilterCatagory.splice(del_index,1);
-    this.TicketArray.splice(del_index,1);
+    for(let i=0;i<this.TicketArray.length;i++)
+    {
+      if(this.TicketArray[i].Ticket_No==key)
+      {
+        this.TicketArray.splice(i,1);
+        break;
+      }
+    }
   }
   edit(index)
   {
@@ -182,7 +189,6 @@ export class TicketsCategoryComponent  {
     if(this.FilterCatagory[i].Ticket_No===index)
     {
       this.FilterCatagory[i]=this.EditRecord;
-      break;
     }
   }
     for(let i=0;i<this.TicketArray.length;i++)
@@ -190,11 +196,15 @@ export class TicketsCategoryComponent  {
       if(this.TicketArray[i].Ticket_No===index)
       {
         this.TicketArray[i]=this.EditRecord;
-        break;
+        console.log(this.TicketArray)
       }
     }
    console.log(this.FilterCatagory);
-    console.log(this.TicketArray)
+    this.EditTicketName="";
+    this.EditTicketDiscription="";
+    this.EditTicketPriorty="";
+    this.EditTicketType="";
+
   }
 
 
