@@ -8,7 +8,7 @@
       <div class="form-group">
         <div class="col-sm-6">
           <label >Type</label><br>
-          <select name="type" ngModel #type="ngModel">
+          <select name="type" ngModel  >
             <option value="Mobile">Mobile</option>
             <option value="Laptop">Laptop</option>
           </select>
@@ -18,7 +18,7 @@
       <div class="form-group">
         <div class="col-sm-6">
           <label >Category:</label><br>
-          <select name="category" ngModel #category="ngModel">
+          <select name="category" ngModel #category="ngModel" >
             <option value="Spare Parts">Spare Parts</option>
             <option value="Manufacture Defect">Manufacture Defect</option>
             <option value="Parts Replacement">Parts Replacement</option>
@@ -57,7 +57,7 @@
       <div class="form-group">
         <div class="col-sm-6">
           <label >Priorty</label><br>
-          <select name="priority" ngModel #priority="ngModel">
+          <select name="priority" ngModel #priority="ngModel" placeholder="Select a dropdown value">
             <option value="high">High</option>
             <option value="low">Low</option>
           </select>
@@ -67,7 +67,7 @@
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
           <button type="btn" class="btn btn-primary" id="register" (click)="AddTicket(f);f.reset();"  [disabled]="f.invalid" >Save</button>
-          <button type="btn" class="btn btn-danger" id="send" >Close</button>
+          <button type="btn" class="btn btn-danger" id="send" (click)="send()">Close</button>
 
         </div>
       </div>

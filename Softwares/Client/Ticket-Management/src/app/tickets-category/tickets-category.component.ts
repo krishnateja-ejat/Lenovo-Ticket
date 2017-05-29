@@ -33,6 +33,7 @@ export class TicketsCategoryComponent  {
   public editname;
   public edidiscription;
   public editedticket;
+  public editcategory;
   constructor(private model:NgbModal)
   {
    let  tickets=localStorage.getItem("ticket");
@@ -95,6 +96,7 @@ export class TicketsCategoryComponent  {
   }
   public DisplayTable(SelectedValue,typeofdevice)
   {
+    console.log(this.TicketArray)
     this.FilterCatagory= [];
     this.TicketArray.forEach((EachRecord)=>{
       if(EachRecord.type===SelectedValue && EachRecord.category===typeofdevice)
@@ -109,17 +111,19 @@ export class TicketsCategoryComponent  {
   }
 
   //View Data Method
-  view(index)
+  view(index,category)
   {
+    alert(category)
     let bool = true;
-    this.TicketArray.forEach((EachRecord)=>{
+    this.FilterCatagory.forEach((EachRecord)=>{
       if(bool) {
         if (EachRecord.Ticket_No == index) {
+          alert(EachRecord.category)
             this.ViewRecord=
             {
               Discription:EachRecord.Discription,
               Ticket_No:EachRecord.Ticket_No,
-              category:EachRecord.category,
+              category:category,
               name:EachRecord.name,
               status:this.status,
               type:EachRecord.type,
@@ -141,54 +145,56 @@ export class TicketsCategoryComponent  {
     // console.log(this.ViewRecord.Ticket_No)
 
   }
-  conformationDelete=(del_index:any)=>{
-    let temparr:Array<any> = [];
-    this.TicketArray.forEach((eachRecord)=>{
-      if(eachRecord.Ticket_No === del_index){
-
-      }else{
-        temparr.push(eachRecord);
-      }
-    })
-    this.TicketArray = temparr;
-
-    localStorage.setItem("TicketsList",JSON.stringify(this.TicketArray))
+  delete(del_index:any){
+    this.FilterCatagory.splice(del_index,1);
+    this.TicketArray.splice(del_index,1);
   }
   edit(index)
   {
     let bool = true;
-    this.TicketArray.forEach((EachRecord)=>{
+    this.FilterCatagory.forEach((EachRecord)=>{
       if(bool) {
         if (EachRecord.Ticket_No == index) {
           this.editedticket=index
           this.editname=EachRecord.name
           this.edidiscription=EachRecord.Discription;
-
+          this.editcategory=EachRecord.category;
           bool=false;
           this.editModal.show()
         }
       }
     });
   }
-  UpdatedRecord(index) {
+  UpdatedRecord(index,category) {
+    alert(category)
     let bool = true;
     this.EditRecord={
-      EditTicketName:this.EditTicketName,
-      EditTicketCategory:this.EditTicketCategory,
-      EditTicketDiscription:this.EditTicketDiscription,
-      EditTicketType:this.EditTicketType,
-      EditTicketPriorty:this.EditTicketPriorty,
+      Ticket_No:this.editedticket,
+      name:this.EditTicketName,
+      Category:category,
+      Discription:this.EditTicketDiscription,
+      type:this.EditTicketType,
+      priority:this.EditTicketPriorty,
 
     }
-  for(let i=0;i<this.TicketArray.length;i++)
+  for(let i=0;i<this.FilterCatagory.length;i++)
   {
-    if(this.TicketArray[i].Ticket_No===index)
+    if(this.FilterCatagory[i].Ticket_No===index)
     {
-      this.TicketArray[i]=this.EditRecord;
+      this.FilterCatagory[i]=this.EditRecord;
       break;
     }
   }
-   console.log(this.TicketArray);
+    for(let i=0;i<this.TicketArray.length;i++)
+    {
+      if(this.TicketArray[i].Ticket_No===index)
+      {
+        this.TicketArray[i]=this.EditRecord;
+        break;
+      }
+    }
+   console.log(this.FilterCatagory);
+    console.log(this.TicketArray)
   }
 
 

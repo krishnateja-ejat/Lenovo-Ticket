@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <table class="table table-striped" [mfData]="this.FilterCatagory" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <table class="table table-striped" [mfData]="FilterCatagory" #mf="mfDataTable" [mfRowsOnPage]="5">
       <thead>
       <tr>
         <th style="width: 12%">
@@ -65,9 +65,9 @@
         </select>
         </td>
         <td bgcolor="#ff7f50">{{item.priority}}</td>
-        <td><button type="button" class="btn btn-success btn-sm" (click)="view(item.Ticket_No)">View</button>
-          <button type="button" class="btn btn-success btn-sm" (click)="edit(item.Ticket_No)"  >Edit</button>
-          <button type="button" class="btn btn-success btn-sm" (click)="conformationDelete(item.Ticket_No)" >Delete</button>
+        <td><button type="button" class="btn btn-success btn-sm" (click)="view(item.Ticket_No,item.category)">View</button>
+          <button type="button" class="btn btn-success btn-sm" (click)="edit(item.Ticket_No,item.category,item.description,item.type)"  >Edit</button>
+          <button type="button" class="btn btn-success btn-sm" (click)="delete(position)" >Delete</button>
         </td>
 
       </tr>
@@ -193,7 +193,7 @@
 
               <div class="form-group">
                 <div  class="col-sm-6">
-                  <button type="btn" class="btn btn-primary" id="register" (click)="UpdatedRecord(editedticket)" >Save</button>
+                  <button type="btn" class="btn btn-primary"  (click)="UpdatedRecord(editedticket,this.editcategory)" >Save</button>
                   <button type="btn" class="btn btn-danger" id="send" >Close</button>
 
                 </div>
@@ -208,7 +208,7 @@
 </div>
 <!--
 ///////////////////////////////deleteModal/////////////////////////////-->
-<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<!--<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-body">
@@ -224,4 +224,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
