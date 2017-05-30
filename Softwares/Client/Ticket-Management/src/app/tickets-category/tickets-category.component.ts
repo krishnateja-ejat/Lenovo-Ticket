@@ -15,20 +15,18 @@ import {Ticket} from "../create-ticket/create-ticket-interface";
 export class TicketsCategoryComponent  {
 
   TicketArray=[];
-  public CategoryList=[];
-  public FilterCatagory=[];
-  public SelectedValue;
+  public categoryList=[];
+  public filterCatagory=[];
+  public selectedValue;
   public devicetype;
-  public ViewRecord:any={};
-  public status;
-  public EditRecord={};
-  public EditTicketName;
-  public EditTicketCategory;
-  public EditTicketDiscription;
-  public EditTicketType;
-  public EditTicketPriorty;
+  public viewRecord:any={};
+  public editStatus;
+  public editRecord={};
+  public editTicketName;
+  public editTicketType;
+  public editProirty;
   public editname;
-  public edidiscription;
+  public editDiscription;
   public editedticket;
   public editcategory;
   public delete_key;
@@ -40,20 +38,21 @@ export class TicketsCategoryComponent  {
    let  tickets=localStorage.getItem("ticket");
     let ticket = JSON.parse(tickets);
     this.TicketArray=ticket;
+
     this.TicketArray.forEach((EachRecord)=>{
       let flag = 0;
-      if(this.CategoryList.length === 0){
-        this.CategoryList.push(EachRecord.category)
+      if(this.categoryList.length === 0){
+        this.categoryList.push(EachRecord.category)
         flag =1;
       }else{
-        this.CategoryList.forEach((EachElement)=>{
+        this.categoryList.forEach((EachElement)=>{
           if(EachElement === EachRecord.category){
             flag = 1;
           }
         })
       }
       if(flag === 0){
-        this.CategoryList.push(EachRecord.category)
+        this.categoryList.push(EachRecord.category)
       }
     })
 
@@ -68,7 +67,7 @@ export class TicketsCategoryComponent  {
 
 
   public selected(value:any):void {
-    this.SelectedValue = value.id;
+    this.selectedValue = value.id;
   }
 
   public removed(value:any):void {
@@ -83,18 +82,18 @@ export class TicketsCategoryComponent  {
     this.value = value;
   }
   //Display Data in Table
-  public DisplayTable(SelectedValue,typeofdevice)
+  public DisplayTable(selectedValue,typeofdevice)
   {
     console.log(this.TicketArray)
-    this.FilterCatagory= [];
+    this.filterCatagory= [];
     this.TicketArray.forEach((EachRecord)=>{
-      if(EachRecord.type===SelectedValue && EachRecord.category===typeofdevice)
+      if(EachRecord.type===selectedValue && EachRecord.category===typeofdevice)
       {
-        this.FilterCatagory.push(EachRecord);
+        this.filterCatagory.push(EachRecord);
       }
 
     })
-    console.log(this.FilterCatagory)
+    console.log(this.filterCatagory)
 
   }
 
@@ -102,33 +101,33 @@ export class TicketsCategoryComponent  {
   public view(index)
   {
     let bool = true;
-    this.FilterCatagory.forEach((EachRecord)=>{
+    this.filterCatagory.forEach((EachRecord)=>{
       if(bool) {
         if (EachRecord.Ticket_No == index) {
           let Category=EachRecord.category
-            this.ViewRecord=
+            this.viewRecord=
             {
               Discription:EachRecord.Discription,
               Ticket_No:EachRecord.Ticket_No,
               category:Category,
               name:EachRecord.name,
-              status:this.status,
+              status:EachRecord.Status,
               type:EachRecord.type,
             }
             bool=false;
         }
       }
     });
-    console.log(this.ViewRecord);
+    console.log(this.viewRecord);
     this.viewModal.show();
     // const modelRef = this.model.open(ViewTicketComponent,{size: 'lg'});
-    // modelRef.componentInstance.ViewRecord = this.ViewRecord;
+    // modelRef.componentInstance.viewRecord = this.viewRecord;
     // modelRef.result.then((formData) => {
     //   console.log("success");
     // }).catch((failed) => {
     //   console.log("failed   ",failed)
     // })
-    // console.log(this.ViewRecord.Ticket_No)
+    // console.log(this.viewRecord.Ticket_No)
 
   }
   //Delete Data
@@ -143,13 +142,17 @@ export class TicketsCategoryComponent  {
   public edit=(index)=>
   {
     let bool = true;
-    this.FilterCatagory.forEach((EachRecord)=>{
+    console.log(this.filterCatagory)
+    this.filterCatagory.forEach((EachRecord)=>{
       if(bool) {
         if (EachRecord.Ticket_No == index) {
+          this.editTicketType = EachRecord.type
           this.editedticket=index
           this.editname=EachRecord.name
-          this.edidiscription=EachRecord.Discription;
+          this.editDiscription=EachRecord.Discription;
           this.editcategory=EachRecord.category;
+          this.editProirty=EachRecord.priority;
+          this.editStatus=EachRecord.Status;
           bool=false;
           this.editModal.show()
         }
@@ -157,43 +160,44 @@ export class TicketsCategoryComponent  {
     });
   }
   public UpdatedRecord=(index,category) =>{
-    alert(category)
     let bool = true;
-    this.EditRecord={
+    this.editRecord={
       Ticket_No:this.editedticket,
-      name:this.EditTicketName,
-      Category:category,
-      Discription:this.EditTicketDiscription,
-      type:this.EditTicketType,
-      priority:this.EditTicketPriorty,
+      name:this.editname,
+      category:this.editcategory,
+      Discription:this.editDiscription,
+      type:this.editTicketType,
+      priority:this.editProirty,
+      status:this.editStatus
 
     }
-  for(let i=0;i<this.FilterCatagory.length;i++)
+  for(let i=0;i<this.filterCatagory.length;i++)
   {
-    if(this.FilterCatagory[i].Ticket_No===index)
+    if(this.filterCatagory[i].Ticket_No===index)
     {
-      this.FilterCatagory[i]=this.EditRecord;
+      this.filterCatagory[i]=this.editRecord;
     }
   }
     for(let i=0;i<this.TicketArray.length;i++)
     {
       if(this.TicketArray[i].Ticket_No===index)
       {
-        this.TicketArray[i]=this.EditRecord;
+        this.TicketArray[i]=this.editRecord;
         console.log(this.TicketArray)
       }
     }
-   console.log(this.FilterCatagory);
-    this.EditTicketName="";
-    this.EditTicketDiscription="";
-    this.EditTicketPriorty="";
-    this.EditTicketType="";
+    this.editTicketName="";
+    this.editProirty="";
+    this.editProirty="";
+    this.editTicketType="";
+    this.editcategory="";
+    this.editModal.hide()
 
   }
   //Conforming to Delete Record
   deleteconformation=(del_index:any,key)=>
   {
-    this.FilterCatagory.splice(del_index,1);
+    this.filterCatagory.splice(del_index,1);
     for(let i=0;i<this.TicketArray.length;i++)
     {
       if(this.TicketArray[i].Ticket_No==key)

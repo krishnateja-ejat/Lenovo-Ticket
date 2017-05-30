@@ -6,9 +6,9 @@
     <form class="form-horizontal" role="form" novalidate #f="ngForm" >
 
       <div class="form-group">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <label >Type</label><br>
-          <select class="selectpicker" name="type" ngModel  >
+          <select class="form-control" name="type" ngModel  novalidate>
             <option value="Mobile" >Mobile</option>
             <option value="Laptop">Laptop</option>
           </select>
@@ -16,9 +16,9 @@
       </div>
 
       <div class="form-group">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <label >Category:</label><br>
-          <select name="category" class="selectpicker" ngModel #category="ngModel" >
+          <select name="category" class="form-control" ngModel #category="ngModel" >
             <option value="Spare Parts">Spare Parts</option>
             <option value="Manufacture Defect">Manufacture Defect</option>
             <option value="Parts Replacement">Parts Replacement</option>
@@ -43,7 +43,7 @@
 
       <div class="form-group">
 
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <label >Discription</label>
           <textarea  class="form-control"  name="Discription"  ngModel #Discription="ngModel" minlength="10" required  ></textarea>
           <div *ngIf="Discription.errors?.required && Discription.touched" class="error">
@@ -55,9 +55,9 @@
         </div>
       </div>
       <div class="form-group">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <label >Priorty</label><br>
-          <select name="priority" ngModel #priority="ngModel" class="selectpicker">
+          <select name="priority" ngModel #priority="ngModel" class="form-control">
             <option value="high">High</option>
             <option value="low">Low</option>
           </select>

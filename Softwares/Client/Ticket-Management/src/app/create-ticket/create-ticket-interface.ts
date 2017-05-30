@@ -5,4 +5,5 @@ export interface Ticket {
   Name: string;
   Discription:string
   Priorty: string;
+  Status:"";
 }

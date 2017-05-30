@@ -19,7 +19,7 @@
         <h3>Select Category</h3>
 
         <ng-select [allowClear]="true"
-                   [items]="CategoryList"
+                   [items]="categoryList"
                    [disabled]="disabled"
                    (data)="refreshValue($event)"
                    (selected)="selected($event)"
@@ -27,7 +27,7 @@
                    (typed)="typed($event)"
                    placeholder="No Category selected">
         </ng-select>
-        <button type="btn" class="btn btn-danger" (click)="DisplayTable(devicetype,SelectedValue)" >Search Tickets</button>
+        <button type="btn" class="btn btn-danger" (click)="DisplayTable(devicetype,selectedValue)" >Search Tickets</button>
       </div>
       <div class="col-md-4"></div>
     </div>
@@ -35,7 +35,7 @@
 </div>
 <section class="success" id="courses">
   <div class="container">
-    <table class="table table-striped" [mfData]="FilterCatagory" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <table class="table table-striped" [mfData]="filterCatagory" #mf="mfDataTable" [mfRowsOnPage]="5">
       <thead>
       <tr>
         <th style="width: 12%">
@@ -56,25 +56,31 @@
       </tr>
       </thead>
       <tbody >
-      <tr *ngFor="let item of this.FilterCatagory;let position=index" >
-        <td bgcolor="#ff7f50">{{item.Ticket_No}}</td>
-        <td bgcolor="#ff7f50">{{item.name}}</td>
-        <td bgcolor="#ff7f50">
-          <select name="status" class="selectpicker" [(ngModel)]="status">
-
+      <tr *ngFor="let item of this.filterCatagory;let position=index" >
+        <td bgcolor="#6495ed">{{item.Ticket_No}}</td>
+        <td bgcolor="#6495ed">{{item.name}}</td>
+        <td bgcolor="#6495ed">
+          <select name="status" class="selectpicker" [(ngModel)]="item.Status">
           <option value="Open">Open</option>
           <option value="Close">Close</option>
         </select>
         </td>
-        <td bgcolor="#ff7f50">{{item.priority}}</td>
-        <td><button type="button" class="btn btn-success btn-sm" (click)="view(item.Ticket_No)">View</button>
-          <button type="button" class="btn btn-success btn-sm" (click)="edit(item.Ticket_No)"  >Edit</button>
-          <button type="button" class="btn btn-success btn-sm" (click)="delete(position,item.Ticket_No)" >Delete</button>
+        <td bgcolor="#6495ed">{{item.priority}}</td>
+        <td>
+          <button type="button" class="btn btn-default btn-sm" (click)="view(item.Ticket_No)">
+            <span class="glyphicon glyphicon-eye-open"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" (click)="edit(item.Ticket_No)">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" (click)="delete(position,item.Ticket_No)">
+          <span class="glyphicon glyphicon-remove"></span>
+          </button>
         </td>
 
       </tr>
       </tbody>
-      <tbody *ngIf="FilterCatagory.length==0">
+      <tbody *ngIf="filterCatagory.length==0">
       <tr>
         <td colspan="100" class="text-center">
           <p>No Tickets are Registered!!!</p>
@@ -110,24 +116,28 @@
           <tbody>
 
           <tr>
-            <td class="text-success"><i class="fa fa-user"></i> Ticket No</td>
-            <td>{{ViewRecord.Ticket_No}}</td>
+            <td class="text-primary"><i></i> Ticket No</td>
+            <td>{{viewRecord.Ticket_No}}</td>
           </tr>
           <tr>
-            <td class="text-success"><i class="fa fa-list-ol"></i> Ticket Discription</td>
-            <td>{{ViewRecord.Discription}}</td>
+            <td class="text-primary"><i></i> Ticket Name</td>
+            <td>{{viewRecord.name}}</td>
           </tr>
           <tr>
-            <td class="text-success"><i class="fa fa-book"></i> Category</td>
-            <td>{{ViewRecord.category}}</td>
+            <td class="text-primary"><i></i> Ticket Discription</td>
+            <td>{{viewRecord.Discription}}</td>
           </tr>
           <tr>
-            <td class="text-success"><i class="fa fa-group"></i> Type </td>
-            <td>{{ViewRecord.type}}</td>
+            <td class="text-primary"><i></i> Category</td>
+            <td>{{viewRecord.category}}</td>
           </tr>
           <tr>
-            <td class="text-success"><i class="fa fa-calendar"></i> Status</td>
-            <td>{{ViewRecord.status}}</td>
+            <td class="text-primary"><i></i> Type </td>
+            <td>{{viewRecord.type}}</td>
+          </tr>
+          <tr>
+            <td class="text-primary"><i></i> Status</td>
+            <td>{{viewRecord.status}}</td>
           </tr>
 
           <tr>
@@ -147,7 +157,7 @@
       <div class="modal-body">
         <div class="container">
           <div class="row">
-              <h1>Edit Ticket</h1>
+              <h1>Edit Ticket #{{editedticket}}</h1>
             <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -156,8 +166,9 @@
               <div class="form-group">
                 <div class="col-sm-6">
                   <label >Type</label><br>
-                  <select name="type" [(ngModel)]="EditTicketType">
+                  <select name="type" [(ngModel)]="editTicketType">
                     <option value="Laptop">Laptop</option>
+                    <option value="Mobile">Moble</option>
                   </select>
                 </div>
               </div>
@@ -165,20 +176,20 @@
               <div class="form-group">
                 <div class="col-sm-6">
                   <label >Category:</label><br>
-                  <select name="category" [(ngModel)]="EditTicketCategory">
+                  <select name="category" [(ngModel)]="editcategory">
                     <option value="Spare Parts">Spare Parts</option>
                     <option value="Manufacture Defect">Manufacture Defect</option>
                     <option value="Parts Replacement">Parts Replacement</option>
-                    <option value="Parts Replacement">Battery Leakage</option>
-                    <option value="Parts Replacement">Charger Defect</option>
-                    <option value="Parts Replacement">Warrenty Extension</option>
+                    <option value="Battery Leakage">Battery Leakage</option>
+                    <option value="Charger Defect">Charger Defect</option>
+                    <option value="Warrenty Extension">Warrenty Extension</option>
                   </select>
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-2">
                   <label >Name</label>
-                  <input type="text" class="form-control"  name="EditTicketName"   minlength="6" required placeholder="Name" name="EditTicketName" [(ngModel)]="EditTicketName" >
+                  <input type="text" class="form-control"     minlength="6" required placeholder="Name" name="editname" minlength="6" [(ngModel)]="editname" >
                 </div>
               </div>
 
@@ -186,13 +197,13 @@
 
                 <div class="col-sm-2">
                   <label >Discription</label>
-                  <textarea  class="form-control"  name="EditTicketDiscription"  minlength="10" required name="EditTicketDiscription" [(ngModel)]="EditTicketDiscription"></textarea>
+                  <textarea  class="form-control"  name="editDiscription"  minlength="10" required placeholder="Discription" [(ngModel)]="editDiscription" minlength="15"></textarea>
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-6">
                   <label >Priorty</label><br>
-                  <select class="form-control" name="priority" [(ngModel)]="EditTicketPriorty">
+                  <select name="priority" [(ngModel)]="editProirty">
                     <option value="high">High</option>
                     <option value="low">Low</option>
                   </select>
@@ -225,7 +236,7 @@
             <button type="button" class="close pull-right" aria-label="Close" >
               <span aria-hidden="true">&times;</span>
             </button>
-            <p>Do You Want To Delete Ticket Id:- {{delete_key}}</p>
+            <p>Do You Want To Delete Ticket Id:- #{{delete_key}}</p>
             <div  class="col-sm-6">
               <button type="btn" class="btn btn-primary" (click)="deleteconformation(delete_index,delete_key)" >Yes</button>
               <button type="btn" class="btn btn-danger"  (click)="notconformation()">No</button>
