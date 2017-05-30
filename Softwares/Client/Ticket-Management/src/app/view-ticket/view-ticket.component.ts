@@ -8,11 +8,11 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class ViewTicketComponent implements OnInit {
   @Input()
-  ViewRecord
+  viewRecord
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
-    console.log('=================== ',this.ViewRecord);
+    console.log('=================== ',this.viewRecord);
   }
   cancelBtn(event)  {
     this.activeModal.close(event);

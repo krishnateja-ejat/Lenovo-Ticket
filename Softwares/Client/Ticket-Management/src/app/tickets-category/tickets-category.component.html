@@ -33,7 +33,7 @@
     </div>
   </div>
 </div>
-<section class="success" id="courses">
+<section class="success" >
   <div class="container">
     <table class="table table-striped" [mfData]="filterCatagory" #mf="mfDataTable" [mfRowsOnPage]="5">
       <thead>
@@ -105,13 +105,11 @@
 <div bsModal #viewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">View Ticket</h4>
-        <button type="button" class="close pull-right" aria-label="Close" >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
       <div class="modal-body">
+      <div class="modal-header">
+        <h2 class="modal-title text-center">View Ticket</h2>
+      </div>
+
         <table class="table">
           <tbody>
 

@@ -120,14 +120,14 @@ export class TicketsCategoryComponent  {
     });
     console.log(this.viewRecord);
     this.viewModal.show();
-    // const modelRef = this.model.open(ViewTicketComponent,{size: 'lg'});
-    // modelRef.componentInstance.viewRecord = this.viewRecord;
-    // modelRef.result.then((formData) => {
-    //   console.log("success");
-    // }).catch((failed) => {
-    //   console.log("failed   ",failed)
-    // })
-    // console.log(this.viewRecord.Ticket_No)
+     /*const modelRef = this.model.open(ViewTicketComponent,{size: 'lg'});
+     modelRef.componentInstance.viewRecord = this.viewRecord;
+     modelRef.result.then((formData) => {
+       console.log("success");
+     }).catch((failed) => {
+      console.log("failed   ",failed)
+     })
+     console.log(this.viewRecord.Ticket_No)*/
 
   }
   //Delete Data
