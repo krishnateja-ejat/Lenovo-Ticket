@@ -22,7 +22,6 @@ export class CreateTicketComponent implements OnInit {
     let count=this.Tickets.length+1;
     value.Ticket_No = count;
     this.Tickets.push(value);
-    console.log(this.Tickets)
     localStorage.setItem("ticket", JSON.stringify(this.Tickets));
   }
   send()

@@ -161,14 +161,14 @@
             <button type="button" class="close pull-right" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <form class="form-horizontal"  novalidate >
+            <form class="form-horizontal"  #form="ngForm" >
 
               <div class="form-group">
                 <div class="col-sm-6">
                   <label >Type</label><br>
                   <select name="type" [(ngModel)]="editTicketType">
                     <option value="Laptop">Laptop</option>
-                    <option value="Mobile">Moble</option>
+                    <option value="Mobile">Mobile</option>
                   </select>
                 </div>
               </div>
@@ -189,7 +189,8 @@
               <div class="form-group">
                 <div class="col-sm-2">
                   <label >Name</label>
-                  <input type="text" class="form-control"     minlength="6" required placeholder="Name" name="editName" minlength="6" [(ngModel)]="editName" >
+                  <input type="text" class="form-control" minlength="6"  placeholder="Name" name="editName" minlength="6" [(ngModel)]="editName"  >
+                  <span *ngIf="(editName&& editName.length)<6">Minimum Length is 7 </span>
                 </div>
               </div>
 
@@ -197,7 +198,8 @@
 
                 <div class="col-sm-2">
                   <label >Discription</label>
-                  <textarea  class="form-control"  name="editDiscription"  minlength="10" required placeholder="Discription" [(ngModel)]="editDiscription" minlength="15"></textarea>
+                  <textarea  class="form-control"  name="editDiscription"  required placeholder="Discription" [(ngModel)]="editDiscription" minlength="15"></textarea>
+                  <span *ngIf="(editDiscription&& editDiscription.length)<15">Minimum Lenght is 16 </span>
                 </div>
               </div>
               <div class="form-group">
@@ -210,14 +212,11 @@
                   </select>
                 </div>
               </div>
-
-              <div class="form-group">
-                <div  class="col-sm-6">
-                  <button type="btn" class="btn btn-success"  (click)="UpdatedRecord(editedTicket,this.editCategory)" >Save</button>
-                  <button type="btn" class="btn btn-danger" (click)="NoUpdate()" >Close</button>
-
-                </div>
+              <div  class="col-sm-6"  >
+                <button  type="button" id="btnsave" class="btn btn-success"(click)="UpdatedRecord(editedTicket,this.editCategory)" [disabled]="((editDiscription && editDiscription.length)<15) || ((editName && editName.length)<6)" >Save</button>
+                <button type="btn" class="btn btn-danger" (click)="NoUpdate()" >Close</button>
               </div>
+
 
             </form>
           </div>
