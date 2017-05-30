@@ -10,7 +10,7 @@
       <div class="col-md-2"></div>
       <div class="col-md-2 type-div">
         <label >Type</label><br>
-        <select name="devicetype" class="form-control" [(ngModel)]="devicetype">
+        <select name="deviceType" class="form-control" [(ngModel)]="deviceType">
           <option value="Mobile">Mobile</option>
           <option value="Laptop">Laptop</option>
         </select>
@@ -27,7 +27,7 @@
                    (typed)="typed($event)"
                    placeholder="No Category selected">
         </ng-select>
-        <button type="btn" class="btn btn-danger" (click)="DisplayTable(devicetype,selectedValue)" >Search Tickets</button>
+        <button type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >Search Tickets</button>
       </div>
       <div class="col-md-4"></div>
     </div>
@@ -103,7 +103,7 @@
 ///////////////////////////////////View Modal////////////////////////////////
 -->
 <div bsModal #viewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left">View Ticket</h4>
@@ -141,7 +141,7 @@
           </tr>
 
           <tr>
-            <button type="button" class="btn btn-success btn-sm"  (click)="resolve()">Resolve</button>
+            <button type="button" class="btn btn-success btn-success" (click)="resolve()">Resolve</button>
           </tr>
           </tbody>
         </table>
@@ -157,8 +157,8 @@
       <div class="modal-body">
         <div class="container">
           <div class="row">
-              <h1>Edit Ticket #{{editedticket}}</h1>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+              <h1>Edit Ticket #{{editedTicket}}</h1>
+            <button type="button" class="close pull-right" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
             <form class="form-horizontal"  novalidate >
@@ -176,7 +176,7 @@
               <div class="form-group">
                 <div class="col-sm-6">
                   <label >Category:</label><br>
-                  <select name="category" [(ngModel)]="editcategory">
+                  <select name="category" [(ngModel)]="editCategory">
                     <option value="Spare Parts">Spare Parts</option>
                     <option value="Manufacture Defect">Manufacture Defect</option>
                     <option value="Parts Replacement">Parts Replacement</option>
@@ -189,7 +189,7 @@
               <div class="form-group">
                 <div class="col-sm-2">
                   <label >Name</label>
-                  <input type="text" class="form-control"     minlength="6" required placeholder="Name" name="editname" minlength="6" [(ngModel)]="editname" >
+                  <input type="text" class="form-control"     minlength="6" required placeholder="Name" name="editName" minlength="6" [(ngModel)]="editName" >
                 </div>
               </div>
 
@@ -205,6 +205,7 @@
                   <label >Priorty</label><br>
                   <select name="priority" [(ngModel)]="editProirty">
                     <option value="high">High</option>
+                    <option value="Medium">Medium</option>
                     <option value="low">Low</option>
                   </select>
                 </div>
@@ -212,7 +213,7 @@
 
               <div class="form-group">
                 <div  class="col-sm-6">
-                  <button type="btn" class="btn btn-primary"  (click)="UpdatedRecord(editedticket,this.editcategory)" >Save</button>
+                  <button type="btn" class="btn btn-success"  (click)="UpdatedRecord(editedTicket,this.editCategory)" >Save</button>
                   <button type="btn" class="btn btn-danger" (click)="NoUpdate()" >Close</button>
 
                 </div>
@@ -236,9 +237,9 @@
             <button type="button" class="close pull-right" aria-label="Close" >
               <span aria-hidden="true">&times;</span>
             </button>
-            <p>Do You Want To Delete Ticket Id:- #{{delete_key}}</p>
+            <p>Do You Want To Delete Ticket Id:- #{{deleteKey}}</p>
             <div  class="col-sm-6">
-              <button type="btn" class="btn btn-primary" (click)="deleteconformation(delete_index,delete_key)" >Yes</button>
+              <button type="btn" class="btn btn-primary" (click)="deleteconformation(deleteIndex,deleteKey)" >Yes</button>
               <button type="btn" class="btn btn-danger"  (click)="notconformation()">No</button>
 
             </div>

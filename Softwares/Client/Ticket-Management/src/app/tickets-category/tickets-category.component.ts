@@ -14,32 +14,32 @@ import {Ticket} from "../create-ticket/create-ticket-interface";
 })
 export class TicketsCategoryComponent  {
 
-  TicketArray=[];
+  ticketArray=[];
   public categoryList=[];
   public filterCatagory=[];
   public selectedValue;
-  public devicetype;
+  public deviceType;
   public viewRecord:any={};
   public editStatus;
   public editRecord={};
   public editTicketName;
   public editTicketType;
   public editProirty;
-  public editname;
+  public editName;
   public editDiscription;
-  public editedticket;
-  public editcategory;
-  public delete_key;
-  public delete_index;
+  public editedTicket;
+  public editCategory;
+  public deleteKey;
+  public deleteIndex;
 
 
   constructor(private model:NgbModal)
   {
    let  tickets=localStorage.getItem("ticket");
     let ticket = JSON.parse(tickets);
-    this.TicketArray=ticket;
+    this.ticketArray=ticket;
 
-    this.TicketArray.forEach((EachRecord)=>{
+    this.ticketArray.forEach((EachRecord)=>{
       let flag = 0;
       if(this.categoryList.length === 0){
         this.categoryList.push(EachRecord.category)
@@ -84,9 +84,9 @@ export class TicketsCategoryComponent  {
   //Display Data in Table
   public DisplayTable(selectedValue,typeofdevice)
   {
-    console.log(this.TicketArray)
+    console.log(this.ticketArray)
     this.filterCatagory= [];
-    this.TicketArray.forEach((EachRecord)=>{
+    this.ticketArray.forEach((EachRecord)=>{
       if(EachRecord.type===selectedValue && EachRecord.category===typeofdevice)
       {
         this.filterCatagory.push(EachRecord);
@@ -134,8 +134,8 @@ export class TicketsCategoryComponent  {
   public delete=(del_index:any,key)=>{
 
     this.deleteModal.show()
-    this.delete_index=del_index;
-    this.delete_key=key;
+    this.deleteIndex=del_index;
+    this.deleteKey=key;
 
   }
   //Update Data
@@ -147,10 +147,10 @@ export class TicketsCategoryComponent  {
       if(bool) {
         if (EachRecord.Ticket_No == index) {
           this.editTicketType = EachRecord.type
-          this.editedticket=index
-          this.editname=EachRecord.name
+          this.editedTicket=index
+          this.editName=EachRecord.name
           this.editDiscription=EachRecord.Discription;
-          this.editcategory=EachRecord.category;
+          this.editCategory=EachRecord.category;
           this.editProirty=EachRecord.priority;
           this.editStatus=EachRecord.Status;
           bool=false;
@@ -162,9 +162,9 @@ export class TicketsCategoryComponent  {
   public UpdatedRecord=(index,category) =>{
     let bool = true;
     this.editRecord={
-      Ticket_No:this.editedticket,
-      name:this.editname,
-      category:this.editcategory,
+      Ticket_No:this.editedTicket,
+      name:this.editName,
+      category:this.editCategory,
       Discription:this.editDiscription,
       type:this.editTicketType,
       priority:this.editProirty,
@@ -178,19 +178,19 @@ export class TicketsCategoryComponent  {
       this.filterCatagory[i]=this.editRecord;
     }
   }
-    for(let i=0;i<this.TicketArray.length;i++)
+    for(let i=0;i<this.ticketArray.length;i++)
     {
-      if(this.TicketArray[i].Ticket_No===index)
+      if(this.ticketArray[i].Ticket_No===index)
       {
-        this.TicketArray[i]=this.editRecord;
-        console.log(this.TicketArray)
+        this.ticketArray[i]=this.editRecord;
+        console.log(this.ticketArray)
       }
     }
     this.editTicketName="";
     this.editProirty="";
     this.editProirty="";
     this.editTicketType="";
-    this.editcategory="";
+    this.editCategory="";
     this.editModal.hide()
 
   }
@@ -198,11 +198,11 @@ export class TicketsCategoryComponent  {
   deleteconformation=(del_index:any,key)=>
   {
     this.filterCatagory.splice(del_index,1);
-    for(let i=0;i<this.TicketArray.length;i++)
+    for(let i=0;i<this.ticketArray.length;i++)
     {
-      if(this.TicketArray[i].Ticket_No==key)
+      if(this.ticketArray[i].Ticket_No==key)
       {
-        this.TicketArray.splice(i,1);
+        this.ticketArray.splice(i,1);
         this.deleteModal.hide()
         break;
       }

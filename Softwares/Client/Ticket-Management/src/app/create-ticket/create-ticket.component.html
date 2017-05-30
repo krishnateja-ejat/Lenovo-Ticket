@@ -8,17 +8,20 @@
       <div class="form-group">
         <div class="col-sm-4">
           <label >Type</label><br>
-          <select class="form-control" name="type" ngModel  novalidate>
+          <select class="form-control" name="type" ngModel #type="ngModel"  required >
             <option value="Mobile" >Mobile</option>
             <option value="Laptop">Laptop</option>
           </select>
+          <div *ngIf="type.errors?.required" class="error">
+            Type is required
+          </div>
         </div>
       </div>
 
       <div class="form-group">
         <div class="col-sm-4">
           <label >Category:</label><br>
-          <select name="category" class="form-control" ngModel #category="ngModel" >
+          <select name="category" class="form-control" ngModel #category="ngModel" required>
             <option value="Spare Parts">Spare Parts</option>
             <option value="Manufacture Defect">Manufacture Defect</option>
             <option value="Parts Replacement">Parts Replacement</option>
@@ -26,7 +29,11 @@
             <option value="Charger Defect">Charger Defect</option>
             <option value="Warrenty Extension">Warrenty Extension</option>
           </select>
+          <div *ngIf="category.errors?.required" class="error">
+            category is required
+          </div>
         </div>
+
       </div>
       <div class="form-group">
         <div class="col-sm-4">
@@ -57,10 +64,20 @@
       <div class="form-group">
         <div class="col-sm-4">
           <label >Priorty</label><br>
-          <select name="priority" ngModel #priority="ngModel" class="form-control">
+          <select name="priority" ngModel #priority="ngModel" class="form-control" required>
             <option value="high">High</option>
+            <option value="Medium">Medium</option>
             <option value="low">Low</option>
           </select>
+          <div *ngIf="priority.errors?.required" class="error">
+            Priority is required
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-4">
+          <label >Status</label>
+          <input type="text" class="form-control"  disabled name="Status"  required placeholder="Open"  >
         </div>
       </div>
 
