@@ -52,7 +52,7 @@
 
         <div class="col-sm-4">
           <label >Discription</label>
-          <textarea  class="form-control"  name="Discription"  ngModel #Discription="ngModel" minlength="10" required  ></textarea>
+          <textarea  class="form-control"  name="Discription"  ngModel #Discription="ngModel" minlength="10" required placeholder="Discription"  ></textarea>
           <div *ngIf="Discription.errors?.required && Discription.touched" class="error">
             Discription is required
           </div>
@@ -65,9 +65,9 @@
         <div class="col-sm-4">
           <label >Priorty</label><br>
           <select name="priority" ngModel #priority="ngModel" class="form-control" required>
-            <option value="high">High</option>
+            <option value="High">High</option>
             <option value="Medium">Medium</option>
-            <option value="low">Low</option>
+            <option value="Low">Low</option>
           </select>
           <div *ngIf="priority.errors?.required" class="error">
             Priority is required

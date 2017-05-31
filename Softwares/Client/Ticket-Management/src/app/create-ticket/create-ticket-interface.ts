@@ -1,5 +1,5 @@
 export interface Ticket {
-  Ticket_No:number;
+  Ticket_No:string;
   Type: string;
   Category:string
   Name: string;

@@ -5,6 +5,7 @@ import {ModalDirective} from "ngx-bootstrap";
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {ViewTicketComponent} from "app/view-ticket/view-ticket.component";
 import {Ticket} from "../create-ticket/create-ticket-interface";
+import {Router, Routes} from "@angular/router";
 
 @Component({
   selector: 'app-tickets-category',
@@ -14,7 +15,7 @@ import {Ticket} from "../create-ticket/create-ticket-interface";
 })
 export class TicketsCategoryComponent  {
 
-  ticketArray=[];
+  ticketArray;
   public categoryList=[];
   public filterCatagory=[];
   public selectedValue;
@@ -31,32 +32,22 @@ export class TicketsCategoryComponent  {
   public editCategory;
   public deleteKey;
   public deleteIndex;
+  public process
+  public strt=true;
+  public resol;
+  public checkStatus;
 
-
-  constructor(private model:NgbModal)
+  constructor(private model:NgbModal,private router: Router)
   {
-   let  tickets=localStorage.getItem("ticket");
-    let ticket = JSON.parse(tickets);
-    this.ticketArray=ticket;
 
-    this.ticketArray.forEach((EachRecord)=>{
-      let flag = 0;
-      if(this.categoryList.length === 0){
-        this.categoryList.push(EachRecord.category)
-        flag =1;
-      }else{
-        this.categoryList.forEach((EachElement)=>{
-          if(EachElement === EachRecord.category){
-            flag = 1;
-          }
-        })
-      }
-      if(flag === 0){
-        this.categoryList.push(EachRecord.category)
-      }
-    })
+    let categories=localStorage.getItem("categories");
+    this.categoryList=JSON.parse(categories);
+    let  tickets=localStorage.getItem("ticket");
+    this.ticketArray=JSON.parse(tickets);
+    localStorage.setItem("tempTickets",JSON.stringify(this.ticketArray));
 
   }
+
   @ViewChild('viewModal') public viewModal:ModalDirective;
   @ViewChild('editModal') public editModal:ModalDirective;
   @ViewChild('deleteModal') public deleteModal:ModalDirective;
@@ -183,7 +174,7 @@ export class TicketsCategoryComponent  {
       if(this.ticketArray[i].Ticket_No===index)
       {
         this.ticketArray[i]=this.editRecord;
-        console.log(this.ticketArray)
+
       }
     }
     this.editTicketName="";
@@ -192,7 +183,7 @@ export class TicketsCategoryComponent  {
     this.editTicketType="";
     this.editCategory="";
     this.editModal.hide()
-
+    console.log(this.ticketArray)
   }
   //Conforming to Delete Record
   deleteconformation=(del_index:any,key)=>
@@ -219,6 +210,31 @@ export class TicketsCategoryComponent  {
   resolve()
   {
     this.viewModal.hide()
+  }
+  CreateTicket()
+  {
+    this.router.navigateByUrl('/createticket');
+  }
+  start(status)
+  {
+
+    if(status=="Open")
+    {
+      this.strt=false;
+        this.process=true
+      this.resol=false;
+    }
+  }
+  proces()
+  {
+    this.strt=false
+    this.resol=true;
+    this.process=false
+
+  }
+  resolv()
+  {
+    this.viewRecord.status="Close"
   }
 
 

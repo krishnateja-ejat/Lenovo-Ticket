@@ -1,11 +1,6 @@
 
 <div class="row">
   <div class="col-md-12 text-center">
-    <h2>Tickets</h2>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12 text-center">
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-2 type-div">
@@ -29,8 +24,12 @@
         </ng-select>
         <button type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >Search Tickets</button>
       </div>
-      <div class="col-md-4"></div>
+      <div class="pull-left div-val" >
+        <button type="btn" class="btn btn-primary" (click)="CreateTicket()" >Create Tickets</button>
+
+      </div>
     </div>
+
   </div>
 </div>
 <section class="success" >
@@ -59,11 +58,8 @@
       <tr *ngFor="let item of this.filterCatagory;let position=index" >
         <td bgcolor="#6495ed">{{item.Ticket_No}}</td>
         <td bgcolor="#6495ed">{{item.name}}</td>
-        <td bgcolor="#6495ed">
-          <select name="status" class="selectpicker" [(ngModel)]="item.Status">
-          <option value="Open">Open</option>
-          <option value="Close">Close</option>
-        </select>
+        <td bgcolor="#6495ed" >
+          {{item.Status}}
         </td>
         <td bgcolor="#6495ed">{{item.priority}}</td>
         <td>
@@ -139,7 +135,11 @@
           </tr>
 
           <tr>
-            <button type="button" class="btn btn-success btn-success" (click)="resolve()">Resolve</button>
+
+            <button type="button" *ngIf="strt"class="btn btn-success btn-success" (click)="start(viewRecord.status)">Start</button>
+            <button type="button" *ngIf="process" class="btn btn-success btn-success" (click)="proces()">Process</button>
+            <button type="button" *ngIf="resol" class="btn btn-success btn-success" (click)="resolv()">Resolve</button>
+
           </tr>
           </tbody>
         </table>
@@ -150,7 +150,7 @@
 <!--
 ///////////////////////////////////////Edit Modal////////////////////////////////-->
 <div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-body">
         <div class="container">
@@ -164,17 +164,14 @@
               <div class="form-group">
                 <div class="col-sm-6">
                   <label >Type</label><br>
-                  <select name="type" [(ngModel)]="editTicketType">
-                    <option value="Laptop">Laptop</option>
-                    <option value="Mobile">Mobile</option>
-                  </select>
+                  <input type="text" class="form-control"  disabled name="editTicketType"  required placeholder="{{editTicketType}}"  >
                 </div>
               </div>
 
               <div class="form-group">
                 <div class="col-sm-6">
                   <label >Category:</label><br>
-                  <select name="category" [(ngModel)]="editCategory">
+                  <select class="form-control" name="category" [(ngModel)]="editCategory">
                     <option value="Spare Parts">Spare Parts</option>
                     <option value="Manufacture Defect">Manufacture Defect</option>
                     <option value="Parts Replacement">Parts Replacement</option>
@@ -185,7 +182,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-2">
+                <div class="col-sm-6">
                   <label >Name</label>
                   <input type="text" class="form-control" minlength="6"  placeholder="Name" name="editName" minlength="6" [(ngModel)]="editName"  >
                   <span *ngIf="(editName&& editName.length)<6">Minimum Length is 7 </span>
@@ -194,19 +191,19 @@
 
               <div class="form-group">
 
-                <div class="col-sm-2">
+                <div class="col-sm-6">
                   <label >Discription</label>
                   <textarea  class="form-control"  name="editDiscription"  required placeholder="Discription" [(ngModel)]="editDiscription" minlength="15"></textarea>
-                  <span *ngIf="(editDiscription&& editDiscription.length)<15">Minimum Lenght is 16 </span>
+                  <span *ngIf="(editDiscription&& editDiscription.length)<15">Minimum Lenght is 15 </span>
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-6">
                   <label >Priorty</label><br>
-                  <select name="priority" [(ngModel)]="editProirty">
-                    <option value="high">High</option>
+                  <select class="form-control" name="priority" [(ngModel)]="editProirty">
+                    <option value="High">High</option>
                     <option value="Medium">Medium</option>
-                    <option value="low">Low</option>
+                    <option value="Low">Low</option>
                   </select>
                 </div>
               </div>
