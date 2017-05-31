@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-2 type-div">
-        <label >Type</label><br>
+        <label  >Type</label><br>
         <select name="deviceType" class="form-control" [(ngModel)]="deviceType">
           <option value="Mobile">Mobile</option>
           <option value="Laptop">Laptop</option>
@@ -37,19 +37,19 @@
     <table class="table table-striped" [mfData]="filterCatagory" #mf="mfDataTable" [mfRowsOnPage]="5">
       <thead>
       <tr>
-        <th style="width: 12%">
+        <th style="width: 10%">
           <mfDefaultSorter by="S.No">Ticket Id</mfDefaultSorter>
         </th>
-        <th style="width: 12%">
+        <th style="width: 10%">
           <mfDefaultSorter by="name">Ticket Name</mfDefaultSorter>
         </th>
-        <th style="width: 12%">
-          <mfDefaultSorter by="status">Status</mfDefaultSorter>
+        <th style="width: 10%">
+          <mfDefaultSorter by="Status">Status</mfDefaultSorter>
         </th>
-        <th style="width: 12%">
+        <th style="width: 10%">
           <mfDefaultSorter by="priority">Prority</mfDefaultSorter>
         </th>
-        <th style="width: 12%">
+        <th style="width: 10%">
           <mfDefaultSorter by="Actions">Actions</mfDefaultSorter>
         </th>
       </tr>
@@ -66,7 +66,7 @@
           <button type="button" class="btn btn-default btn-sm" (click)="view(item.Ticket_No)">
             <span class="glyphicon glyphicon-eye-open"></span>
           </button>
-          <button type="button" class="btn btn-default btn-sm" (click)="edit(item.Ticket_No)">
+          <button type="button" class="btn btn-default btn-sm" (click)="edit(item.Ticket_No,item.Status)">
             <span class="glyphicon glyphicon-pencil"></span>
           </button>
           <button type="button" class="btn btn-default btn-sm" (click)="delete(position,item.Ticket_No)">
@@ -136,9 +136,9 @@
 
           <tr>
 
-            <button type="button" *ngIf="strt"class="btn btn-success btn-success" (click)="start(viewRecord.status)">Start</button>
-            <button type="button" *ngIf="process" class="btn btn-success btn-success" (click)="proces()">Process</button>
-            <button type="button" *ngIf="resol" class="btn btn-success btn-success" (click)="resolv()">Resolve</button>
+            <button type="button" *ngIf="strt" class="btn btn-success btn-success" (click)="start(viewRecord.status,viewRecord.Ticket_No)">Process</button>
+            <button type="button" *ngIf="process" class="btn btn-success btn-success" (click)="proces(viewRecord.Ticket_No)">Resolve</button>
+            <button type="button" *ngIf="resol" class="btn btn-success btn-success" (click)="resolv(viewRecord.Ticket_No)">Close</button>
 
           </tr>
           </tbody>
@@ -207,6 +207,7 @@
                   </select>
                 </div>
               </div>
+
               <div  class="col-sm-6"  >
                 <button  type="button" id="btnsave" class="btn btn-success"(click)="UpdatedRecord(editedTicket,this.editCategory)" [disabled]="((editDiscription && editDiscription.length)<15) || ((editName && editName.length)<6)" >Save</button>
                 <button type="btn" class="btn btn-danger" (click)="NoUpdate()" >Close</button>

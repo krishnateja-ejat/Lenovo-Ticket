@@ -58,13 +58,14 @@ export class CreateTicketComponent implements OnInit {
 
     }
     this.Tickets.push(value);
+    console.log(this.Tickets)
     localStorage.setItem("ticket", JSON.stringify(this.Tickets));
     this.router.navigateByUrl('/home');
   }
   send()
   {
     localStorage.clear();
-    console.log(this.Tickets)
+    this.router.navigateByUrl('/createticket');
   }
 
 }

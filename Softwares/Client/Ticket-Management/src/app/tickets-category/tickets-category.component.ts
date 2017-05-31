@@ -1,10 +1,8 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 
-import {SelectModule} from 'ng2-select';
 import {ModalDirective} from "ngx-bootstrap";
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {ViewTicketComponent} from "app/view-ticket/view-ticket.component";
-import {Ticket} from "../create-ticket/create-ticket-interface";
+
 import {Router, Routes} from "@angular/router";
 
 @Component({
@@ -130,7 +128,7 @@ export class TicketsCategoryComponent  {
 
   }
   //Update Data
-  public edit=(index)=>
+  public edit=(index,status)=>
   {
     let bool = true;
     console.log(this.filterCatagory)
@@ -143,7 +141,7 @@ export class TicketsCategoryComponent  {
           this.editDiscription=EachRecord.Discription;
           this.editCategory=EachRecord.category;
           this.editProirty=EachRecord.priority;
-          this.editStatus=EachRecord.Status;
+          this.viewRecord.status=status;
           bool=false;
           this.editModal.show()
         }
@@ -159,9 +157,10 @@ export class TicketsCategoryComponent  {
       Discription:this.editDiscription,
       type:this.editTicketType,
       priority:this.editProirty,
-      status:this.editStatus
+      Status:this.viewRecord.status
 
     }
+
   for(let i=0;i<this.filterCatagory.length;i++)
   {
     if(this.filterCatagory[i].Ticket_No===index)
@@ -177,6 +176,7 @@ export class TicketsCategoryComponent  {
 
       }
     }
+
     this.editTicketName="";
     this.editProirty="";
     this.editProirty="";
@@ -184,6 +184,7 @@ export class TicketsCategoryComponent  {
     this.editCategory="";
     this.editModal.hide()
     console.log(this.ticketArray)
+    this.router.navigateByUrl('/home');
   }
   //Conforming to Delete Record
   deleteconformation=(del_index:any,key)=>
@@ -207,34 +208,64 @@ export class TicketsCategoryComponent  {
   {
     this.editModal.hide()
   }
-  resolve()
-  {
-    this.viewModal.hide()
-  }
+
   CreateTicket()
   {
     this.router.navigateByUrl('/createticket');
   }
-  start(status)
+  start(status,Ticket)
   {
 
     if(status=="Open")
     {
+      this.viewRecord.status="Start"
+      let bool = true;
       this.strt=false;
-        this.process=true
+      this.process=true
       this.resol=false;
+      this.filterCatagory.forEach((EachRecord)=>{
+        if(bool) {
+          if (EachRecord.Ticket_No== Ticket) {
+            EachRecord.Status=this.viewRecord.status;
+            bool=false;
+          }
+        }
+      })
+
     }
   }
-  proces()
+  proces(Ticket)
   {
+    this.viewRecord.status="Resolve"
+    let bool = true;
     this.strt=false
     this.resol=true;
     this.process=false
+    this.filterCatagory.forEach((EachRecord)=>{
+      if(bool) {
+        if (EachRecord.Ticket_No== Ticket) {
+          EachRecord.Status=this.viewRecord.status;
+          bool=false;
+        }
+      }
+    })
+
+
 
   }
-  resolv()
+  resolv(Ticket)
   {
     this.viewRecord.status="Close"
+    let bool = true;
+    this.filterCatagory.forEach((EachRecord)=>{
+      if(bool) {
+        if (EachRecord.Ticket_No== Ticket) {
+          EachRecord.Status=this.viewRecord.status;
+          bool=false;
+        }
+      }
+    })
+    this.viewModal.hide()
   }
 
 
