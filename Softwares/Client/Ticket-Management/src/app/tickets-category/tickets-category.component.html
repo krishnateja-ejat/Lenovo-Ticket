@@ -135,11 +135,27 @@
           </tr>
 
           <tr>
+            <div *ngIf="viewRecord.status=='Open'||viewRecord.status=='Start' ;else login">
+            <wizard >
+              <wizard-step title="Start">
+                <button type="button" nextStep class="btn-default" (click)="start(viewRecord.status,viewRecord.Ticket_No)">Start</button>
+              </wizard-step>
+              <wizard-step title="Process" >
+                <button type="button" nextStep class="btn-success" (click)=" proces(viewRecord.Ticket_No)">Process</button>
+              </wizard-step>
 
-            <button type="button" *ngIf="strt" class="btn btn-success btn-success" (click)="start(viewRecord.status,viewRecord.Ticket_No)">Process</button>
-            <button type="button" *ngIf="process" class="btn btn-success btn-success" (click)="proces(viewRecord.Ticket_No)">Resolve</button>
-            <button type="button" *ngIf="resol" class="btn btn-success btn-success" (click)="resolv(viewRecord.Ticket_No)">Close</button>
-
+            </wizard>
+            </div>
+            <template #login [ngIf]="viewRecord.status=='Process'||viewRecord.status=='Close'">
+            <wizard >
+              <wizard-step title="Resolve" >
+                <button type="button" nextStep class="btn-success" (click)=" proces(viewRecord.Ticket_No)">Resolve</button>
+              </wizard-step>
+              <wizard-step title="Close">
+                <button type="button" nextStep class="btn-danger" (click)="resolv(viewRecord.Ticket_No)">Close</button>
+              </wizard-step>
+            </wizard>
+            </template>
           </tr>
           </tbody>
         </table>

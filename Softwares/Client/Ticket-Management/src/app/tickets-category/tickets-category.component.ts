@@ -13,13 +13,13 @@ import {Router, Routes} from "@angular/router";
 })
 export class TicketsCategoryComponent  {
 
-  ticketArray;
+  public ticketArray;
   public categoryList=[];
   public filterCatagory=[];
   public selectedValue;
   public deviceType;
   public viewRecord:any={};
-  public editStatus;
+  public AllRecords=[];
   public editRecord={};
   public editTicketName;
   public editTicketType;
@@ -33,7 +33,11 @@ export class TicketsCategoryComponent  {
   public process
   public strt=true;
   public resol;
-  public checkStatus;
+  public checkStatusTicket;
+  public btn_1Id=0;
+  public btn_2Id=0;
+  public btn_3Id=0;
+  public viewRecordArray=[]
 
   constructor(private model:NgbModal,private router: Router)
   {
@@ -73,22 +77,25 @@ export class TicketsCategoryComponent  {
   //Display Data in Table
   public DisplayTable(selectedValue,typeofdevice)
   {
+    let bool=0
     console.log(this.ticketArray)
     this.filterCatagory= [];
+    this.AllRecords= [];
     this.ticketArray.forEach((EachRecord)=>{
       if(EachRecord.type===selectedValue && EachRecord.category===typeofdevice)
       {
         this.filterCatagory.push(EachRecord);
       }
-
     })
-    console.log(this.filterCatagory)
 
+    //console.log(this.filterCatagory)
+    console.log(this.AllRecords)
   }
 
   //View Data Method
   public view(index)
   {
+
     let bool = true;
     this.filterCatagory.forEach((EachRecord)=>{
       if(bool) {
@@ -103,10 +110,14 @@ export class TicketsCategoryComponent  {
               status:EachRecord.Status,
               type:EachRecord.type,
             }
+          this.checkStatusTicket=index;
             bool=false;
         }
       }
     });
+    this.btn_1Id=this.btn_1Id+1
+    this.btn_2Id=this.btn_2Id+1
+    this.btn_3Id=this.btn_3Id+1
     console.log(this.viewRecord);
     this.viewModal.show();
      /*const modelRef = this.model.open(ViewTicketComponent,{size: 'lg'});
@@ -141,7 +152,7 @@ export class TicketsCategoryComponent  {
           this.editDiscription=EachRecord.Discription;
           this.editCategory=EachRecord.category;
           this.editProirty=EachRecord.priority;
-          this.viewRecord.status=status;
+          this.viewRecord.status=EachRecord.Status;
           bool=false;
           this.editModal.show()
         }
@@ -184,7 +195,7 @@ export class TicketsCategoryComponent  {
     this.editCategory="";
     this.editModal.hide()
     console.log(this.ticketArray)
-    this.router.navigateByUrl('/home');
+    this.start(this.viewRecord.status,index)
   }
   //Conforming to Delete Record
   deleteconformation=(del_index:any,key)=>
@@ -231,6 +242,14 @@ export class TicketsCategoryComponent  {
           }
         }
       })
+      this.ticketArray.forEach((EachRecord)=>{
+        if(bool) {
+          if (EachRecord.Ticket_No== Ticket) {
+            EachRecord.Status=this.viewRecord.status;
+            bool=false;
+          }
+        }
+      })
 
     }
   }
@@ -249,6 +268,14 @@ export class TicketsCategoryComponent  {
         }
       }
     })
+    this.ticketArray.forEach((EachRecord)=>{
+      if(bool) {
+        if (EachRecord.Ticket_No== Ticket) {
+          EachRecord.Status=this.viewRecord.status;
+          bool=false;
+        }
+      }
+    })
 
 
 
@@ -257,6 +284,14 @@ export class TicketsCategoryComponent  {
   {
     this.viewRecord.status="Close"
     let bool = true;
+    this.filterCatagory.forEach((EachRecord)=>{
+      if(bool) {
+        if (EachRecord.Ticket_No== Ticket) {
+          EachRecord.Status=this.viewRecord.status;
+          bool=false;
+        }
+      }
+    })
     this.filterCatagory.forEach((EachRecord)=>{
       if(bool) {
         if (EachRecord.Ticket_No== Ticket) {

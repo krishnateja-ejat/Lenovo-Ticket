@@ -12,6 +12,7 @@ import {routes} from './router';
 import { ModalModule } from 'ngx-bootstrap';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
+import { WizardModule } from 'ng2-archwizard';
 @NgModule( {
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { ViewTicketComponent } from './view-ticket/view-ticket.component';
     routes,
     ModalModule.forRoot(),
     NgbModule.forRoot(),
-    NgbModule
+    NgbModule,
+    WizardModule
   ],
   entryComponents : [ViewTicketComponent],
   providers: [],
