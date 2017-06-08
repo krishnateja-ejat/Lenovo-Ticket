@@ -15,7 +15,7 @@ export class CreateTicketComponent implements OnInit {
 
   public tempTickets:any
   static count=0;
-
+  public value={"name":"krishna","age":23};
   constructor(private router: Router)
   {
 
@@ -25,7 +25,7 @@ export class CreateTicketComponent implements OnInit {
   {
     let categories=["Spare Parts","Manufacture Defect","Parts Replacement","Battery Leakage","Charger Defect","Warrenty Extension"];
     localStorage.setItem("categories",JSON.stringify(categories));
-    if ( localStorage.getItem("tempTickets")!=null)
+     if ( localStorage.getItem("tempTickets")!=null)
     {
       let tickets=localStorage.getItem("tempTickets")
       this.tempTickets=JSON.parse(tickets);
@@ -51,6 +51,7 @@ export class CreateTicketComponent implements OnInit {
     value.Ticket_No = 'AP'+this.makeid();
 
     //this.Tickets.push(this.tempTickets[0]);
+
     if ( localStorage.getItem("tempTickets")!=null) {
       this.tempTickets.forEach((EachRecord)=>{
         this.Tickets.push(EachRecord)

@@ -62,6 +62,8 @@
           {{item.Status}}
         </td>
         <td bgcolor="#6495ed">{{item.priority}}</td>
+
+
         <td>
           <button type="button" class="btn btn-default btn-sm" (click)="view(item.Ticket_No)">
             <span class="glyphicon glyphicon-eye-open"></span>
@@ -138,7 +140,7 @@
             <div *ngIf="viewRecord.status=='Open'||viewRecord.status=='Start' ;else login">
             <wizard >
               <wizard-step title="Start">
-                <button type="button" nextStep class="btn-default" (click)="start(viewRecord.status,viewRecord.Ticket_No)">Start</button>
+                <button type="button" nextStep class="btn-default" (click)="start(viewRecord.status,viewRecord.Ticket_No)">Open</button>
               </wizard-step>
               <wizard-step title="Process" >
                 <button type="button" nextStep class="btn-success" (click)=" proces(viewRecord.Ticket_No)">Process</button>
@@ -146,7 +148,7 @@
 
             </wizard>
             </div>
-            <template #login [ngIf]="viewRecord.status=='Process'||viewRecord.status=='Close'">
+            <template #login [ngIf]="viewRecord.status=='Process'">
             <wizard >
               <wizard-step title="Resolve" >
                 <button type="button" nextStep class="btn-success" (click)=" proces(viewRecord.Ticket_No)">Resolve</button>
